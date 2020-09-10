@@ -49,9 +49,8 @@ if(loading) return "Loading..."
         gotoNextPage={nextPageUrl ? gotoNextPage : null}
         gotoPrevPage={prevPageUrl ? gotoPrevPage : null}
       />
-    
+
     </>
-   
   );
 }
 
