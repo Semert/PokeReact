@@ -12,13 +12,30 @@ function App() {
 
   useEffect(() => {
     setLoading(true)
-    axios.get(currentPageUrl).then(res =>{
+    // for cancel the get request
+    let cancel
+    axios.get(currentPageUrl,
+       {cancelToken: new axios.CancelToken(c => cancel = c)})
+       .then(res =>{
       setLoading(false)
       setNextPageUrl(res.data.next)
       setPrevPageUrl(res.data.previous) 
       setPokemon(res.data.results.map(p => p.name))
     })
+
+    return () => cancel()
+
 }, [currentPageUrl])
+
+const gotoNextPage = () =>
+{
+  setCurrentPageUrl(nextPageUrl)
+}
+
+const gotoPrevPage = () => 
+{
+  setCurrentPageUrl(prevPageUrl)
+}
 
 if(loading) return "Loading..."
   
